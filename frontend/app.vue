@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <main class="w-[100%] h-[100%]">
+    <main class="container mx-auto px-4">
         <form ref="form" method="POST" action="/process-image" enctype="multipart/form-data" class="container mx-auto flex flex-row gap-4 justify-center">
-          <div class="w-1/3 max-w-12 flex flex-col gap-4 justify-center min-h-screen">
+          <div class="w-[350px] flex flex-col gap-4 justify-center my-auto min-h-screen">
             <fieldset>
               <legend class="block text-sm font-medium leading-6 text-gray-900">Output size</legend>
               <div class="mt-2 -space-y-px rounded-md bg-white shadow-sm">
@@ -40,8 +40,8 @@
         </form>
     </main>
     <footer class="mt-auto mb-2 container mx-auto px-4 flex justify-between flex-wrap">
-      <span>Image Scratch &mdash; 2023</span>
-      <span>theeldarka</span>
+      <span>Image Stratch &mdash; 2023</span>
+      <span><a href="https://github.com/theeldarka/image-stratch" target="_blank">GitHub</a></span>
     </footer>
   </div>
 </template>
