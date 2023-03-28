@@ -3,11 +3,13 @@ package main
 import (
 	"image/color"
 
+	"github.com/go-playground/validator"
 	"github.com/labstack/echo/v4"
 )
 
 func main() {
 	e := echo.New()
+	e.Validator = &CustomValidator{validator: validator.New()}
 
 	e.POST("/process-image", Handler)
 

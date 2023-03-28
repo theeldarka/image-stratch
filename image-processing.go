@@ -1,24 +1,34 @@
 package main
 
 import (
+	"bytes"
+	"fmt"
 	"image"
 	"image/color"
 	"image/draw"
-	"image/jpeg"
-	"os"
+	"io"
 
 	"github.com/nfnt/resize"
 )
 
-func openImage(filename string) (image.Image, error) {
-	file, err := os.Open(filename)
+// func openImage(filename string) (image.Image, error) {
+// 	file, err := os.Open(filename)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	defer file.Close()
+
+// 	return getImageFromFile(file)
+// }
+
+func getImageFromFile(file io.Reader) (image.Image, error) {
+	buf, err := io.ReadAll(file)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error reading file: %w", err)
 	}
-	defer file.Close()
-	img, err := jpeg.Decode(file)
+	img, _, err := image.Decode(bytes.NewReader(buf))
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error decoding image: %w", err)
 	}
 	return img, nil
 }
@@ -67,15 +77,15 @@ func drawImageFromImage(img image.Image) draw.Image {
 	return dest
 }
 
-func saveImage(img image.Image, filename string) error {
-	file, err := os.Create(filename)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
-	err = jpeg.Encode(file, img, &jpeg.Options{Quality: 100})
-	if err != nil {
-		return err
-	}
-	return nil
-}
+// func saveImage(img image.Image, filename string) error {
+// 	file, err := os.Create(filename)
+// 	if err != nil {
+// 		return err
+// 	}
+// 	defer file.Close()
+// 	err = jpeg.Encode(file, img, &jpeg.Options{Quality: 100})
+// 	if err != nil {
+// 		return err
+// 	}
+// 	return nil
+// }
