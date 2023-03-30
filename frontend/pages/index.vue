@@ -105,17 +105,17 @@ export default {
                 method: 'POST',
                 body: formData
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(response.statusText);
+                .then(async (response) => {
+                    if (response.ok) {
+                        return response.blob()
+                            .then(this.downloadFile);
                     }
 
-                    return response.blob();
-                })
-                .then(this.downloadFile)
-                .catch(error => {
-                    console.error('Error:', error);
+                    const data = await response.json();
 
+                    throw new Error(data.error || response.statusText);
+                })
+                .catch(error => {
                     useToast().error(this.$t('status.error') + ': ' + error.message);
                 });
         },

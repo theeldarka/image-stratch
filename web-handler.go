@@ -11,6 +11,7 @@ import (
 	"github.com/go-playground/validator"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
+	"github.com/sunshineplan/imgconv"
 )
 
 // type Color struct {
@@ -114,5 +115,5 @@ func getImageFromRequest(c echo.Context) (image.Image, error) {
 
 	defer file.Close()
 
-	return getImageFromFile(file)
+	return imgconv.Decode(file)
 }
