@@ -62,6 +62,8 @@ func Handler(c echo.Context) error {
 		})
 	}
 
+	log.Infof("Incoming request from IP %s", c.RealIP())
+
 	inputImg, err := getImageFromRequest(c)
 	if err != nil {
 		log.Error(err)
